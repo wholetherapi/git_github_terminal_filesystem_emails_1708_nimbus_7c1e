@@ -15,3 +15,7 @@ utility library that both stages share.
 - `src/transform` - field mapping and shard reduction
 - `src/emit` - delivery sink and routing rules
 - `vendor/lib_v1`, `vendor/lib_v2` - pinned copies of the shared utility library
+
+## Tests
+
+    make test
