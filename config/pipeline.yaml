@@ -2,7 +2,9 @@ pipeline:
   ingest:
     chunk_size: 8192
     flush_every: 512
+    max_empty_reads: 3
   transform:
     shard_count: 16
   emit:
     sink_timeout: 30
+    rotation_window: 900
