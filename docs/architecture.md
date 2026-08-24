@@ -7,3 +7,8 @@ The pipeline is split into three stages:
 3. `emit` - routes batches to one of the delivery sinks.
 
 Both stages share a vendored utility library under `vendor/`.
+
+## Shard flow
+
+Buckets are hashed into sixteen shards; each shard reduces independently before
+the emit stage routes the merged result.
