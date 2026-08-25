@@ -14,10 +14,20 @@ def encode_varint(value: int) -> bytes:
     return bytes(out)
 
 
+def _adaptive_recode_window(payload_size: int) -> int:
+    """Pick a recode window that scales with the incoming payload."""
+    if payload_size <= 0:
+        return default_recode_window
+    target = payload_size // 8
+    return max(default_recode_window, min(target, max_recode_window))
+
+
 def recode(payload: bytes, window: int = 0) -> bytes:
-    width = window or default_recode_window
+    width = window or _adaptive_recode_window(len(payload))
     if width <= 0:
         raise ValueError("window must be positive")
-    if width > max_recode_window:
-        width = max_recode_window
     return payload[:width]
+
+
+def decode_header(raw: bytes) -> dict:
+    return {"magic": raw[:2], "length": len(raw)}
