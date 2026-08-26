@@ -7,3 +7,7 @@ def test_encode_varint_round_trips_small_values():
 
 def test_recode_keeps_payload_prefix():
     assert codecs.recode(b"abcdef", 3) == b"abc"
+
+
+def test_recode_pads_to_window():
+    assert codecs.recode(b"xy", 4) == b"xy"
