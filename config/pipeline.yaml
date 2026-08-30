@@ -6,5 +6,5 @@ pipeline:
   transform:
     shard_count: 16
   emit:
-    sink_timeout: 30
+    sink_timeout: 45
     rotation_window: 900
