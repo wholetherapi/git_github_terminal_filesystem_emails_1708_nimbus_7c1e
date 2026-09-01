@@ -19,3 +19,7 @@ utility library that both stages share.
 ## Tests
 
     make test
+
+## Local test loop
+
+    python -m pytest tests/test_reader.py -q
