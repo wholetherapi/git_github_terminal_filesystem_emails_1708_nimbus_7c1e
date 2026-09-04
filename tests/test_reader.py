@@ -12,3 +12,9 @@ class _FakeHandle:
 def test_iter_chunks_reports_every_chunk():
     data = [b"ab", b"cd", b""]
     assert list(iter_chunks(_FakeHandle(data))) == [b"ab", b"cd"]
+
+
+def test_read_manifest_keeps_entries(tmp_path):
+    target = tmp_path / "manifest.txt"
+    target.write_text("a\nb\n", encoding="utf-8")
+    assert read_manifest(str(target))["entries"] == ["a", "b"]
