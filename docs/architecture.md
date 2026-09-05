@@ -12,3 +12,8 @@ Both stages share a vendored utility library under `vendor/`.
 
 Buckets are hashed into sixteen shards; each shard reduces independently before
 the emit stage routes the merged result.
+
+## Observability
+
+The emit stage exports counters for each sink. The ingest stage reports empty
+reads so a stalled upstream can be distinguished from an idle one.
