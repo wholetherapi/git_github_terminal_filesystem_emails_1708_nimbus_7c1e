@@ -8,3 +8,5 @@ pipeline:
   emit:
     sink_timeout: 45
     rotation_window: 900
+  observability:
+    shard_lag_threshold: 90
