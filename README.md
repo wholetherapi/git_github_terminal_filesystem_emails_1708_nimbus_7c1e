@@ -20,6 +20,8 @@ utility library that both stages share.
 
     make test
 
+The vendored trees are intentionally kept side by side.
+
 ## Local test loop
 
     python -m pytest tests/test_reader.py -q
