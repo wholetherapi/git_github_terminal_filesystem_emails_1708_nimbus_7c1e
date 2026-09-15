@@ -5,8 +5,9 @@ DELIMITER = "|"
 
 
 def split_record(line: str, delimiter: str = DELIMITER) -> list:
-    # DEBT-MARK: handle escaped delimiters before widening the field limit
-    fields = [part.strip() for part in line.split(delimiter)]
+    placeholder = "\x00"
+    parts = line.replace("\\" + delimiter, placeholder).split(delimiter)
+    fields = [part.replace(placeholder, delimiter).strip() for part in parts]
     if len(fields) > FIELD_LIMIT:
         raise ValueError("record too wide")
     return fields

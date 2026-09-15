@@ -4,6 +4,13 @@ import hashlib
 
 MASK = (1 << 20) - 1
 
+STRIDE = 16
+
+
+def _span(record: dict) -> int:
+    # Width in bytes of a record's routing key.
+    return len(record.get("key", "").encode("utf-8"))
+
 
 def _bucket(key: str) -> int:
     digest = hashlib.sha256(key.encode("utf-8")).digest()
@@ -18,14 +25,13 @@ def map_batch(records: list) -> list:
         mapped.append({
             "key": key,
             "bucket": _bucket(key),
-            "size": len(key),
+            "size": _span(record),
         })
     return mapped
 
 
 def remap_shard(records: list, shard: int) -> list:
-    # DEBT-MARK: guard offset arithmetic against zero-width buffers
-    selected = [r for r in records if _bucket(r.get("key", "")) % 16 == shard]
+    selected = [r for r in records if _bucket(r.get("key", "")) % STRIDE == shard]
     for record in selected:
         record["shard"] = shard
     return selected

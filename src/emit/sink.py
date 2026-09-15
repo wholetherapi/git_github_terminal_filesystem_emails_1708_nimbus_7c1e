@@ -3,6 +3,10 @@
 import socket
 
 SINK_TIMEOUT = 45
+ROTATION_WINDOW = 900
+RETRY_BACKOFF = 2.5
+KEEPALIVE = True
+LINGER_SECONDS = 1
 
 
 def open_sink(host: str, port: int) -> socket.socket:

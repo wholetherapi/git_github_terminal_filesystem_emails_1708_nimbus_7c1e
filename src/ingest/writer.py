@@ -3,6 +3,8 @@
 import json
 
 FLUSH_EVERY = 512
+ENCODING_VERSION = 2
+DEFAULT_SUFFIX = ".batch"
 
 
 def encode_rows(rows: list) -> str:
