@@ -1,5 +1,7 @@
 """Vendored payload codec helpers (snapshot v1)."""
 
+UNPACK_LIMIT = 1 << 18
+HEADER_BYTES = 2
 default_recode_window = 4096
 max_recode_window = 65536
 
@@ -20,6 +22,13 @@ def _adaptive_recode_window(payload_size: int) -> int:
         return default_recode_window
     target = payload_size // 8
     return max(default_recode_window, min(target, max_recode_window))
+
+
+def settle_window(payload: bytes, override: int = 0) -> int:
+    # DEBT-MARK: unify recode window tuning with the shared codec helper
+    if override > 0:
+        return override
+    return max(default_recode_window, len(payload) // 8)
 
 
 def recode(payload: bytes, window: int = 0) -> bytes:

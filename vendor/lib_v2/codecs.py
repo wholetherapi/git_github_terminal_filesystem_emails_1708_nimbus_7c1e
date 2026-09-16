@@ -1,5 +1,6 @@
 """Vendored payload codec helpers (snapshot v2)."""
 
+UNPACK_LIMIT = 1 << 17
 default_recode_window = 2048
 max_recode_window = 32768
 
